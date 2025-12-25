@@ -18,8 +18,13 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter{
     @Override
     public void onAttach(TaskDetailContract.View view) {
         this.view = view;
-        if (view != null && task != null) {
-            view.showTask(task);
+        if (view != null) {
+            if (task != null) {
+                view.showTask(task);
+                view.setDeleteButtonVisibility(true);
+            } else {
+                view.setDeleteButtonVisibility(false);
+            }
         }
     }
 
@@ -45,6 +50,18 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter{
                 int result = taskDao.update(task);
                 if (result > 0) {
                     view.returnResult(AppConstant.RESULT_CODE_UPDATE_TASK, task);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void deleteTask() {
+        if (view != null) {
+            if (task != null) {
+                int result = taskDao.delete(task);
+                if (result > 0) {
+                    view.returnResult(AppConstant.RESULT_CODE_DELETE_TASK, task);
                 }
             }
         }

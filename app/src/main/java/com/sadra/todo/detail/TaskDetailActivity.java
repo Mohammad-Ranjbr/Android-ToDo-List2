@@ -24,13 +24,13 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
     private View highImportanceBtn;
     private View normalImportanceBtn;
     private View lowImportanceBtn;
+    private View deleteTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_task_detail);
-        getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
 
         this.presenter = new TaskDetailPresenter(AppDatabase.getAppDatabase(this).getTaskDao(),
                 getIntent().getParcelableExtra(AppConstant.EXTRA_KEY_TASK));
@@ -41,6 +41,9 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
         taskTitleEditText = findViewById(R.id.et_taskDetail_title);
         View saveChangeButton = findViewById(R.id.btn_taskDetail_saveChanges);
         saveChangeButton.setOnClickListener(v -> presenter.saveChange(taskTitleEditText.getText().toString(), selectedImportance));
+
+        deleteTaskButton = findViewById(R.id.iv_taskDetail_delete);
+        deleteTaskButton.setOnClickListener(v -> presenter.deleteTask());
 
         highImportanceBtn = findViewById(R.id.highImportanceBtn);
         highImportanceBtn.setOnClickListener(v -> {
@@ -105,6 +108,11 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
         intent.putExtra(AppConstant.EXTRA_KEY_TASK, task);
         setResult(resultCode, intent);
         finish();
+    }
+
+    @Override
+    public void setDeleteButtonVisibility(boolean visibility) {
+        deleteTaskButton.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
     @Override

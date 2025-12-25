@@ -77,7 +77,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     public void deleteItem(Task task) {
         for (int i = 0; i <tasks.size(); i++) {
             if (tasks.get(i).getId() == task.getId()) {
-                this.tasks.remove(task);
+                this.tasks.remove(i);
                 notifyItemRemoved(i);
                 break;
             }

@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == AppConstant.REQUEST_CODE) {
+        if (requestCode == AppConstant.REQUEST_CODE && data != null) {
             Task task = data.getParcelableExtra(AppConstant.EXTRA_KEY_TASK);
             if (task != null) {
                 switch (resultCode) {
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
                         taskAdapter.updateItem(task);
                         break;
                     case AppConstant.RESULT_CODE_DELETE_TASK:
+                        taskAdapter.deleteItem(task);
                         break;
                 }
             }
