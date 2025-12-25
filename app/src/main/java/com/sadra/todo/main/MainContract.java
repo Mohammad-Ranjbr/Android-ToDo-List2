@@ -11,10 +11,11 @@ public interface MainContract {
     interface View extends BaseView {
         void showTasks(List<Task> tasks);
         void setEmptyStateVisibility(boolean visibility);
+        void clearTasks();
     }
 
     interface Presenter extends BasePresenter<View> {
-
+        void onDeleteAllClick();
     }
 
 }

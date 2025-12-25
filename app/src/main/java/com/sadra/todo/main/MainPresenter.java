@@ -32,4 +32,12 @@ public class MainPresenter implements MainContract.Presenter{
         this.view = null;
     }
 
+    @Override
+    public void onDeleteAllClick() {
+        if (view != null) {
+            taskDao.deleteAll();
+            view.clearTasks();
+            view.setEmptyStateVisibility(true);
+        }
+    }
 }

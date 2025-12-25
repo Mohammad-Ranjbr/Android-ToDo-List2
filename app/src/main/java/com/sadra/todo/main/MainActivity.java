@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
             startActivityForResult(intent, AppConstant.REQUEST_CODE);
         });
 
+        View deleteAllButton = findViewById(R.id.btn_main_deleteAll);
+        deleteAllButton.setOnClickListener(v -> presenter.onDeleteAllClick());
+
         presenter.onAttach(this);
 
     }
@@ -85,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
     @Override
     public void setEmptyStateVisibility(boolean visibility) {
         emptyState.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void clearTasks() {
+        taskAdapter.clearItems();
     }
 
     @Override
