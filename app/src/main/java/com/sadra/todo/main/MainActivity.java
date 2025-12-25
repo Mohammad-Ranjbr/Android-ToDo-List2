@@ -1,9 +1,11 @@
-package com.sadra.todo;
+package com.sadra.todo.main;
 
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.sadra.todo.R;
 
 public class MainActivity extends AppCompatActivity {
 
