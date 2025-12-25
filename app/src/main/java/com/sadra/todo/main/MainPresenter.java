@@ -49,4 +49,14 @@ public class MainPresenter implements MainContract.Presenter{
             view.showTasks(taskDao.getAll());
         }
     }
+
+    @Override
+    public void onTaskItemClick(Task task) {
+        task.setCompleted(!task.isCompleted());
+        int result = taskDao.update(task);
+        if (result > 0) {
+            view.updateTask(task);
+        }
+    }
+
 }

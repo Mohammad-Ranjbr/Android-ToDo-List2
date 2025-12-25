@@ -12,11 +12,13 @@ public interface MainContract {
         void showTasks(List<Task> tasks);
         void setEmptyStateVisibility(boolean visibility);
         void clearTasks();
+        void updateTask(Task task);
     }
 
     interface Presenter extends BasePresenter<View> {
         void onDeleteAllClick();
         void onSearch(String query);
+        void onTaskItemClick(Task task);
     }
 
 }

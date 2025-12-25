@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
 
     @Override
     public void onClick(Task task) {
-
+        presenter.onTaskItemClick(task);
     }
 
     @Override
@@ -124,6 +124,11 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
     @Override
     public void clearTasks() {
         taskAdapter.clearItems();
+    }
+
+    @Override
+    public void updateTask(Task task) {
+        taskAdapter.updateItem(task);
     }
 
     @Override
