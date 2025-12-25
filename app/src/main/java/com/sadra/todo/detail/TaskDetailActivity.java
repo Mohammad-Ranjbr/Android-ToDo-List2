@@ -20,6 +20,10 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
     private int selectedImportance = AppConstant.IMPORTANCE_NORMAL;
     private ImageView lastSelectedImportanceIv;
     private TaskDetailContract.Presenter presenter;
+    private EditText taskTitleEditText;
+    private View highImportanceBtn;
+    private View normalImportanceBtn;
+    private View lowImportanceBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +32,17 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
         setContentView(R.layout.activity_task_detail);
         getWindow().setStatusBarColor(getColor(R.color.colorPrimary));
 
-        this.presenter = new TaskDetailPresenter(AppDatabase.getAppDatabase(this).getTaskDao());
+        this.presenter = new TaskDetailPresenter(AppDatabase.getAppDatabase(this).getTaskDao(),
+                getIntent().getParcelableExtra(AppConstant.EXTRA_KEY_TASK));
 
-        View normalImportanceBtn = findViewById(R.id.normalImportanceBtn);
+        normalImportanceBtn = findViewById(R.id.normalImportanceBtn);
         lastSelectedImportanceIv = normalImportanceBtn.findViewById(R.id.normalImportanceCheckIv);
 
-        EditText editText = findViewById(R.id.et_taskDetail_title);
+        taskTitleEditText = findViewById(R.id.et_taskDetail_title);
         View saveChangeButton = findViewById(R.id.btn_taskDetail_saveChanges);
-        saveChangeButton.setOnClickListener(v -> presenter.saveChange(editText.getText().toString(), selectedImportance));
+        saveChangeButton.setOnClickListener(v -> presenter.saveChange(taskTitleEditText.getText().toString(), selectedImportance));
 
-        View highImportanceBtn = findViewById(R.id.highImportanceBtn);
+        highImportanceBtn = findViewById(R.id.highImportanceBtn);
         highImportanceBtn.setOnClickListener(v -> {
             if (selectedImportance != AppConstant.IMPORTANCE_HIGH) {
                 this.lastSelectedImportanceIv.setImageResource(0);
@@ -48,7 +53,7 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
             }
         });
 
-        View lowImportanceBtn = findViewById(R.id.lowImportanceBtn);
+        lowImportanceBtn = findViewById(R.id.lowImportanceBtn);
         lowImportanceBtn.setOnClickListener(v -> {
             if (selectedImportance != AppConstant.IMPORTANCE_LOW) {
                 this.lastSelectedImportanceIv.setImageResource(0);
@@ -71,6 +76,22 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
 
         presenter.onAttach(this);
 
+    }
+
+    @Override
+    public void showTask(Task task) {
+        taskTitleEditText.setText(task.getTitle());
+        switch (task.getImportance()) {
+            case AppConstant.IMPORTANCE_HIGH:
+                highImportanceBtn.performClick();
+                break;
+            case AppConstant.IMPORTANCE_NORMAL:
+                normalImportanceBtn.performClick();
+                break;
+            case AppConstant.IMPORTANCE_LOW:
+                lowImportanceBtn.performClick();
+                break;
+        }
     }
 
     @Override

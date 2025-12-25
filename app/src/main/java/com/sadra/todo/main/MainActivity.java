@@ -59,12 +59,19 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstant.REQUEST_CODE) {
-            if (resultCode == AppConstant.RESULT_CODE_ADD_TASK) {
-                Task task = data.getParcelableExtra(AppConstant.EXTRA_KEY_TASK);
-                if (task != null) {
-                    taskAdapter.addItem(task);
-                    recyclerView.scrollToPosition(0);
-                    setEmptyStateVisibility(false);
+            Task task = data.getParcelableExtra(AppConstant.EXTRA_KEY_TASK);
+            if (task != null) {
+                switch (resultCode) {
+                    case AppConstant.RESULT_CODE_ADD_TASK:
+                        taskAdapter.addItem(task);
+                        recyclerView.scrollToPosition(0);
+                        setEmptyStateVisibility(false);
+                        break;
+                    case AppConstant.RESULT_CODE_UPDATE_TASK:
+                        taskAdapter.updateItem(task);
+                        break;
+                    case AppConstant.RESULT_CODE_DELETE_TASK:
+                        break;
                 }
             }
         }
@@ -77,7 +84,9 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
 
     @Override
     public void onLongClick(Task task) {
-
+        Intent intent = new Intent(MainActivity.this, TaskDetailActivity.class);
+        intent.putExtra(AppConstant.EXTRA_KEY_TASK, task);
+        startActivityForResult(intent, AppConstant.REQUEST_CODE);
     }
 
     @Override

@@ -7,6 +7,7 @@ import com.sadra.todo.util.BaseView;
 public interface TaskDetailContract {
 
     interface View extends BaseView {
+        void showTask(Task task);
         void showError(String error);
         void returnResult(int resultCode, Task task);
     }
