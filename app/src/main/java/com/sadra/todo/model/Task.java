@@ -60,6 +60,9 @@ public class Task implements Parcelable {
         this.importance = importance;
     }
 
+    public Task() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
