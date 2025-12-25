@@ -16,6 +16,7 @@ public interface MainContract {
 
     interface Presenter extends BasePresenter<View> {
         void onDeleteAllClick();
+        void onSearch(String query);
     }
 
 }

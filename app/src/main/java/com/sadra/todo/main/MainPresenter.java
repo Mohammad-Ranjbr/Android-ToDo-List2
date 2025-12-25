@@ -40,4 +40,13 @@ public class MainPresenter implements MainContract.Presenter{
             view.setEmptyStateVisibility(true);
         }
     }
+
+    @Override
+    public void onSearch(String query) {
+        if (!query.isEmpty()) {
+            view.showTasks(taskDao.search(query));
+        } else {
+            view.showTasks(taskDao.getAll());
+        }
+    }
 }
