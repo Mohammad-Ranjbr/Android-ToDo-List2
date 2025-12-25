@@ -2,4 +2,17 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#794CFF</color>
+    <color name="colorPrimaryDark">#6724FF</color>
+    <color name="colorSecondary">#3BE1F1</color>
+    <color name="colorAccent">#3BE1F1</color>
+    <color name="defaultTextColor">#1D2830</color>
+    <color name="secondaryTextColor">#AFBED0</color>
+    <color name="secondaryIconColor">#AFBED0</color>
+    <color name="secondaryRippleColor">#CFD8DC</color>
+    <color name="textColorOnSurface">#E6ffffff</color>
+    <color name="secondaryButtonBackgroundTint">#EAEFF5</color>
+    <color name="lightGray">#BDBDBD</color>
+    <color name="main_background">#F5F5F5</color>
+    <color name="red500">#F44336</color>
 </resources>

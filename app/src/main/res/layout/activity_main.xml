@@ -1,12 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true"
+    android:background="@color/main_background">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/main_toolbar_shape">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp">
+            <TextView
+                style="@style/h1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To Do List"
+                android:textColor="@color/textColorOnSurface"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"/>
+            <ImageView
+                android:id="@+id/iv_main_clearTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp"
+                app:srcCompat="@drawable/ic_gitlab_square_white_24dp" />
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+            <EditText
+                android:id="@+id/et_main_search"
+                style="@style/p"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:hint="Search tasks..."
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/ic_search_gray_24dp"
+                android:textColor="@color/defaultTextColor"
+                android:textColorHint="@color/secondaryTextColor"/>
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <RelativeLayout
+            android:id="@+id/main_headerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_main_deleteAll"
+                style="@style/SecondaryButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:text="Delete All"
+                android:textSize="12dp"
+                app:iconSize="18dp"
+                app:icon="@drawable/ic_delete_24dp"/>
+            <TextView
+                android:id="@+id/tv_main_today"
+                style="@style/h1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="10dp"/>
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="3.5dp"
+                android:layout_alignStart="@id/tv_main_today"
+                android:layout_alignEnd="@id/tv_main_today"
+                android:layout_marginBottom="2dp"
+                android:layout_alignBottom="@id/btn_main_deleteAll"
+                android:background="@drawable/main_today_tv_shape"/>
+        </RelativeLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_main_taskList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:clipToPadding="false"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_emptyState_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:srcCompat="@drawable/empty_state"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Try adding some tasks to see them here"
+            style="@style/p"/>
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_main_addNewTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="12dp"
+        android:text="Add New Task"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        app:icon="@drawable/ic_add_24dp"
+        app:iconSize="24dp"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
