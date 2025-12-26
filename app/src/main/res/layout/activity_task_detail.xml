@@ -27,7 +27,7 @@
                 android:id="@+id/tv_taskDetail_toolbarTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Task"
+                tools:text="Edit Task"
                 android:layout_toEndOf="@+id/btn_taskDetail_back"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="12dp"

@@ -14,7 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sadra.todo.R;
+import com.sadra.todo.confirm.ConfirmDialog;
 import com.sadra.todo.detail.TaskDetailActivity;
+import com.sadra.todo.listener.ConfirmListener;
 import com.sadra.todo.listener.TaskItemEventListener;
 import com.sadra.todo.model.AppDatabase;
 import com.sadra.todo.model.Task;
@@ -52,7 +54,11 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
         });
 
         View deleteAllButton = findViewById(R.id.btn_main_deleteAll);
-        deleteAllButton.setOnClickListener(v -> presenter.onDeleteAllClick());
+        deleteAllButton.setOnClickListener(v -> {
+            ConfirmDialog confirmDialog = new ConfirmDialog(true);
+            confirmDialog.setListener(() -> presenter.onDeleteAllClick());
+            confirmDialog.show(getSupportFragmentManager(), null);
+        });
 
         EditText searchEditText = findViewById(R.id.et_main_search);
         searchEditText.addTextChangedListener(new TextWatcher() {
@@ -93,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements TaskItemEventList
                         break;
                     case AppConstant.RESULT_CODE_DELETE_TASK:
                         taskAdapter.deleteItem(task);
+                        setEmptyStateVisibility(taskAdapter.getItemCount() == 0);
                         break;
                 }
             }

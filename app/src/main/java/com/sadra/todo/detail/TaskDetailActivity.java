@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.sadra.todo.R;
+import com.sadra.todo.confirm.ConfirmDialog;
 import com.sadra.todo.model.AppDatabase;
 import com.sadra.todo.model.Task;
 import com.sadra.todo.util.AppConstant;
@@ -25,6 +27,7 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
     private View normalImportanceBtn;
     private View lowImportanceBtn;
     private View deleteTaskButton;
+    private TextView toolBarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,13 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
         saveChangeButton.setOnClickListener(v -> presenter.saveChange(taskTitleEditText.getText().toString(), selectedImportance));
 
         deleteTaskButton = findViewById(R.id.iv_taskDetail_delete);
-        deleteTaskButton.setOnClickListener(v -> presenter.deleteTask());
+        deleteTaskButton.setOnClickListener(v -> {
+            ConfirmDialog confirmDialog = new ConfirmDialog(false);
+            confirmDialog.setListener(() -> presenter.deleteTask());
+            confirmDialog.show(getSupportFragmentManager(), null);
+        });
+
+        toolBarTitle = findViewById(R.id.tv_taskDetail_toolbarTitle);
 
         highImportanceBtn = findViewById(R.id.highImportanceBtn);
         highImportanceBtn.setOnClickListener(v -> {
@@ -111,8 +120,9 @@ public class TaskDetailActivity extends AppCompatActivity implements TaskDetailC
     }
 
     @Override
-    public void setDeleteButtonVisibility(boolean visibility) {
+    public void setEditTaskScreen(boolean visibility) {
         deleteTaskButton.setVisibility(visibility ? View.VISIBLE : View.GONE);
+        toolBarTitle.setText(visibility ? getString(R.string.taskDetail_toolbarTitle_edit) : getString(R.string.taskDetail_toolbarTitle_add));
     }
 
     @Override

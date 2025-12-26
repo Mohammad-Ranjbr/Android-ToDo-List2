@@ -4,4 +4,6 @@
     <string name="confirm_dialog_cancel_button_text">Cancel</string>
     <string name="delete_item_dialog_message">Are you sure you want to delete this item?</string>
     <string name="delete_all_dialog_message">Are you sure you want to delete all items?</string>
+    <string name="taskDetail_toolbarTitle_edit">Edit Task</string>
+    <string name="taskDetail_toolbarTitle_add">Add New Task</string>
 </resources>

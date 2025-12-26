@@ -21,9 +21,9 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter{
         if (view != null) {
             if (task != null) {
                 view.showTask(task);
-                view.setDeleteButtonVisibility(true);
+                view.setEditTaskScreen(true);
             } else {
-                view.setDeleteButtonVisibility(false);
+                view.setEditTaskScreen(false);
             }
         }
     }

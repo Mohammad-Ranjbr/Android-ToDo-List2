@@ -10,7 +10,7 @@ public interface TaskDetailContract {
         void showTask(Task task);
         void showError(String error);
         void returnResult(int resultCode, Task task);
-        void setDeleteButtonVisibility(boolean visibility);
+        void setEditTaskScreen(boolean visibility);
     }
 
     interface Presenter extends BasePresenter<View> {
